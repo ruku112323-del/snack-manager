@@ -1,10 +1,18 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Snack Manager</title><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Snacks"><meta name="theme-color" content="#1769aa"><script src="https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js"></script><script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script><style>body{font-family:Arial;max-width:700px;margin:auto;padding:16px;background:#f4f6f8;color:#222}.card{background:white;padding:16px;margin:14px 0;border-radius:12px}input,select,button{box-sizing:border-box;width:100%;padding:12px;margin:6px 0;font-size:16px;border:1px solid #bbb;border-radius:8px}button{background:#1769aa;color:white;border:0;font-weight:bold}button.gray{background:#59636e}label{display:block;font-weight:bold;margin-top:8px}.small{font-size:13px;color:#555}#reader{max-width:100%}.item{padding:10px 0;border-top:1px solid #ddd;display:flex;gap:10px;align-items:center}.row{display:flex;gap:10px}.row button{flex:1}label.check{display:flex;align-items:center;gap:8px;font-weight:normal}label.check input{width:auto;margin:0}.thumbwrap{flex:none;cursor:pointer}.thumb{width:52px;height:52px;border-radius:8px;object-fit:cover;background:#eef1f4;display:flex;align-items:center;justify-content:center;font-size:26px}.info{flex:1;min-width:0}.ctl{display:flex;align-items:center;gap:8px;margin-top:6px}.ctl button{width:auto;min-width:38px;padding:6px 12px;margin:0}.ctl select{width:auto;padding:6px;margin:0;font-size:14px}.ctl strong{min-width:24px;text-align:center}.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}button.chip{width:auto;padding:6px 12px;margin:0;font-size:14px;background:#e3e8ee;color:#222;border-radius:999px}button.chip.on{background:#1769aa;color:#fff}.pager{display:flex;align-items:center;gap:10px;margin-top:10px}.pager button{width:auto;padding:8px 16px;margin:0}.pager span{flex:1;text-align:center}.pager button:disabled{opacity:.4}.lnk{cursor:pointer;text-decoration:underline}.ctl input.qty{width:64px;padding:6px;margin:0;text-align:center;font-size:16px;font-weight:bold}button.del{width:auto;background:#c62828;padding:8px 14px;margin:0;font-size:14px}</style></head><body><h1>🍪 Snack Manager</h1><p>Scan snacks, record expiry dates, and export to Excel.</p>
-<div class="card"><h2>1. Excel database</h2><p id="msg" class="small">Connecting to your GitHub Excel database…</p><p class="small">The app automatically reads Snack_Manager_Starter.xlsx from this GitHub Pages repository and merges it with records saved on this device. Use Export to download an updated Excel copy.</p><details><summary>Manual Excel import (optional)</summary><input type="file" id="file" accept=".xlsx,.xls"></details><button class="gray" id="export">Export updated Excel</button></div>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Snack Manager</title><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Snacks"><meta name="theme-color" content="#1769aa"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" type="image/png" href="icon-192.png"><style>body{font-family:Arial;max-width:700px;margin:auto;padding:16px;background:#f4f6f8;color:#222}.card{background:white;padding:16px;margin:14px 0;border-radius:12px}input,select,button{box-sizing:border-box;width:100%;padding:12px;margin:6px 0;font-size:16px;border:1px solid #bbb;border-radius:8px}button{background:#1769aa;color:white;border:0;font-weight:bold}button.gray{background:#59636e}label{display:block;font-weight:bold;margin-top:8px}.small{font-size:13px;color:#555}#reader{max-width:100%}.item{padding:10px 0;border-top:1px solid #ddd;display:flex;gap:10px;align-items:center}.row{display:flex;gap:10px}.row button{flex:1}label.check{display:flex;align-items:center;gap:8px;font-weight:normal}label.check input{width:auto;margin:0}.thumbwrap{flex:none;cursor:pointer}.thumb{width:52px;height:52px;border-radius:8px;object-fit:cover;background:#eef1f4;display:flex;align-items:center;justify-content:center;font-size:26px}.info{flex:1;min-width:0}.ctl{display:flex;align-items:center;gap:8px;margin-top:6px}.ctl button{width:auto;min-width:38px;padding:6px 12px;margin:0}.ctl select{width:auto;padding:6px;margin:0;font-size:14px}.ctl strong{min-width:24px;text-align:center}.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}button.chip{width:auto;padding:6px 12px;margin:0;font-size:14px;background:#e3e8ee;color:#222;border-radius:999px}button.chip.on{background:#1769aa;color:#fff}.pager{display:flex;align-items:center;gap:10px;margin-top:10px}.pager button{width:auto;padding:8px 16px;margin:0}.pager span{flex:1;text-align:center}.pager button:disabled{opacity:.4}.lnk{cursor:pointer;text-decoration:underline}.ctl input.qty{width:64px;padding:6px;margin:0;text-align:center;font-size:16px;font-weight:bold}button:disabled{opacity:.55}button.buy{background:#2e7d32;margin:8px 0 0;padding:10px}button.buy:disabled{background:#8a97a3;opacity:1}button.undo{width:auto;padding:8px 14px;margin:0;font-size:14px}#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#222;color:#fff;padding:10px 14px;border-radius:10px;display:flex;gap:12px;align-items:center;max-width:92vw;transition:.2s;z-index:99;font-size:15px}#toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}#toast button{width:auto;margin:0;padding:6px 12px;background:#ffd54f;color:#222}.warn{color:#b71c1c;font-weight:bold}button.del{width:auto;background:#c62828;padding:8px 14px;margin:0;font-size:14px}</style></head><body><h1>🍪 Snack Manager</h1><p>Scan snacks, record expiry dates, and export to Excel.</p>
+<div class="card"><h2>1. Excel database</h2><p id="msg" class="small">Connecting to your GitHub Excel database…</p><p class="small">The app automatically reads Snack_Manager_Starter.xlsx from this GitHub Pages repository and merges it with records saved on this device. Use Export to download an updated Excel copy.</p><details><summary>Manual Excel import (optional)</summary><input type="file" id="file" accept=".xlsx,.xls"></details><button class="gray" id="export">Export updated Excel</button><p id="backupInfo" class="small"></p></div>
 <div class="card"><h2>2. Scan barcode</h2><button id="scan">Start camera scanner</button><div id="reader"></div><div id="camTools" class="row" style="display:none"><button class="gray" id="torch" style="display:none">🔦 Light on</button><button class="gray" id="zoom" style="display:none">🔍 Zoom 2×</button></div><label class="check"><input type="checkbox" id="keepScan"> Keep scanning after saving</label><button class="gray" id="photoBtn">📷 Take a photo of the barcode instead</button><input type="file" id="photo" accept="image/*" capture="environment" hidden><div id="photoReader" hidden></div><label>Barcode</label><input id="barcode" placeholder="Scan or type barcode"><button class="gray" id="lookup">Find product</button><p id="lookupMsg" class="small"></p><p class="small">If a barcode is not in your saved list, Snack Manager can try the free Open Food Facts database. Product matches are not guaranteed, especially for some Japanese snacks.</p></div>
-<div class="card"><h2>3. Add stock</h2><label>Snack name</label><input id="name"><label>Brand</label><input id="brand"><label>Points each</label><select id="points"><option>1</option><option>2</option><option>3</option></select><label>Expiration date</label><input id="expiry" type="date"><label>Quantity</label><input id="qty" type="number" min="1" value="1"><label>Photo (optional)</label><div class="row" style="align-items:center"><span id="previewBox"></span><button class="gray" id="photoPick">📷 Add / change photo</button></div><input type="file" id="snackPhoto" accept="image/*" hidden><button id="save">Save snack batch</button><button class="gray" id="clearFields">Clear fields</button><p class="small">The barcode usually does not contain the expiration date. Enter the date printed on the package.</p></div>
-<div class="card"><h2>4. Expiration reminders</h2><p class="small">Snack Manager checks each batch for two reminders: approximately 1 month (30 days) and 10 days before expiration.</p><button id="enableNotifications">Enable notifications</button><p id="notificationStatus" class="small">Notifications are not enabled yet. You can still see reminders here when you open the app.</p><div id="reminderList"></div></div><div class="card"><h2>5. Inventory</h2><p id="totals">No items yet.</p><input id="search" type="search" placeholder="🔍 Search name, brand, barcode or date" autocomplete="off"><div class="chips" id="chips"></div><div id="list"></div><div class="pager" id="pager"><button class="gray" id="prev">‹ Prev</button><span id="pageInfo" class="small"></span><button class="gray" id="next">Next ›</button></div><input type="file" id="rowPhoto" accept="image/*" hidden></div>
+<div class="card"><h2>3. Add stock</h2><label>Snack name</label><input id="name"><label>Brand</label><input id="brand"><label>Points each</label><select id="points"><option>1</option><option>2</option><option>3</option></select><label>Expiration date</label><input id="expiry" type="date"><div class="chips" id="dateChips"></div><label>Quantity</label><input id="qty" type="number" min="1" value="1"><label>Photo (optional)</label><div class="row" style="align-items:center"><span id="previewBox"></span><button class="gray" id="photoPick">📷 Add / change photo</button></div><input type="file" id="snackPhoto" accept="image/*" hidden><button id="save">Save snack batch</button><button class="gray" id="clearFields">Clear fields</button><p class="small">The barcode usually does not contain the expiration date. Enter the date printed on the package.</p></div>
+<div class="card"><h2>4. Expiration reminders</h2><p class="small">Snack Manager checks each batch for two reminders: approximately 1 month (30 days) and 10 days before expiration.</p><button id="enableNotifications">Enable notifications</button><p id="notificationStatus" class="small">Notifications are not enabled yet. You can still see reminders here when you open the app.</p><div id="reminderList"></div></div><div class="card"><h2>5. Kids' points</h2><div id="walletMain"></div><div class="row"><button class="gray" id="wRefill">Refill to max</button><button class="gray" id="wMinus">−1 pt</button><button class="gray" id="wPlus">+1 pt</button></div><label>Daily points (max)</label><input id="wMax" type="number" min="1" max="99" inputmode="numeric"><p class="small">Points refill automatically every day at midnight. Tap Buy on a snack in the inventory to spend points and take one piece out of stock.</p><h3 style="margin-bottom:4px">Today's purchases</h3><div id="wLog"></div></div><div class="card"><h2>6. Inventory</h2><p id="totals">No items yet.</p><input id="search" type="search" placeholder="🔍 Search name, brand, barcode or date" autocomplete="off"><div class="chips" id="chips"></div><div class="chips" id="ptsChips"></div><label class="small" for="sortBy" style="margin:0">Sort by</label><select id="sortBy"><option value="soon">Soonest expiry</option><option value="name">Name A–Z</option><option value="pLow">Points: 1 → 3</option><option value="pHigh">Points: 3 → 1</option></select><div id="list"></div><div class="pager" id="pager"><button class="gray" id="prev">‹ Prev</button><span id="pageInfo" class="small"></span><button class="gray" id="next">Next ›</button></div><input type="file" id="rowPhoto" accept="image/*" hidden></div>
+<div class="card"><h2>7. Shopping list</h2><p class="small">Tap “Min stock” on a snack in the inventory to set a minimum. Snacks that drop below it appear here.</p><div id="shopList"></div><button class="gray" id="shopCopy">📋 Copy list</button></div>
+<div class="card"><h2>8. Sync between devices</h2><p class="small">Keeps your inventory, points and photos identical on every phone or computer by saving a file (<b>snack_data.json</b>) in your GitHub repository. If the repository is public, anyone with the link could read that file.</p><button class="gray" id="syNow">Sync now</button><p id="syncMsg" class="small">Not connected.</p><details id="syncSetup"><summary>Set up / change</summary><ol class="small"><li>On GitHub: Settings → Developer settings → Fine-grained tokens → Generate new token.</li><li>Repository access: “Only select repositories” → pick this app’s repository.</li><li>Permissions → Repository permissions → <b>Contents: Read and write</b>. Generate and copy the token.</li><li>Paste it below on each device you use. The token stays on that device only.</li></ol><label>GitHub username</label><input id="syOwner" autocapitalize="none" autocomplete="off"><label>Repository name</label><input id="syRepo" autocapitalize="none" autocomplete="off"><label>Access token</label><input id="syToken" type="password" autocomplete="off" placeholder="github_pat_…"><button id="syConnect">Connect &amp; sync</button><button class="gray" id="syOff">Disconnect this device</button></details></div>
+<div id="toast" role="status" aria-live="polite"></div>
 <script>
-let products=[],stock=[],scanner=null;const $=id=>document.getElementById(id);const key='snack_manager_v1';function persist(){localStorage.setItem(key,JSON.stringify({products,stock}));render();checkReminders()}function match(code){return products.find(p=>String(p.Barcode).trim()===String(code).trim())}function days(d){if(!d)return null;let a=new Date();a.setHours(0,0,0,0);return Math.round((new Date(d+'T00:00:00')-a)/86400000)}function status(d){let n=days(d);return n===null?'NO DATE':n<0?'EXPIRED':n<=7?'NEARLY EXPIRED':'GOOD'}
+// Libraries load only when needed, so the app opens fast.
+const LIBS={xlsx:'https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js',qr:'https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js'};
+const _loading={};
+function loadLib(k){return _loading[k]||(_loading[k]=new Promise((res,rej)=>{let sc=document.createElement('script');sc.src=LIBS[k];sc.onload=res;sc.onerror=()=>{delete _loading[k];rej(new Error('Could not load '+k))};document.head.appendChild(sc)}))}
+const ensureXLSX=async()=>{if(!window.XLSX)await loadLib('xlsx')};
+let products=[],stock=[],scanner=null;const $=id=>document.getElementById(id);const key='snack_manager_v1';function persist(){localStorage.setItem(key,JSON.stringify({products,stock}));render();checkReminders();markDirty()}function match(code){return products.find(p=>String(p.Barcode).trim()===String(code).trim())}function days(d){if(!d)return null;let a=new Date();a.setHours(0,0,0,0);return Math.round((new Date(d+'T00:00:00')-a)/86400000)}function status(d){let n=days(d);return n===null?'NO DATE':n<0?'EXPIRED':n<=7?'NEARLY EXPIRED':'GOOD'}
 function alertStore(){try{return JSON.parse(localStorage.getItem('snack_manager_alerts_v1')||'{}')}catch(e){return {}}}
 function saveAlertStore(v){localStorage.setItem('snack_manager_alerts_v1',JSON.stringify(v))}
 function batchKey(x){return [x.Barcode||'',x.Name||'',x.Expiry||''].join('|')}
@@ -99,12 +107,7 @@ $('enableNotifications').onclick=async()=>{
 const delKey='snack_manager_deleted_v1';
 const stockId=x=>[x.Barcode,x.Name,x.Expiry,x.Quantity,x['Points each']].join('|');
 function deletedSet(){try{return new Set(JSON.parse(localStorage.getItem(delKey)||'[]'))}catch(e){return new Set()}}
-function deleteItem(x){
-  if(!confirm(`Delete “${x.Name}” × ${x.Quantity} (expiry ${x.Expiry})?`))return;
-  // remember the deletion so the GitHub Excel file does not re-add it on the next load
-  let d=deletedSet();d.add(stockId(x));localStorage.setItem(delKey,JSON.stringify([...d]));
-  stock=stock.filter(s=>s!==x);persist();
-}
+function deleteItem(x){undoable(`Deleted “${x.Name}”`,()=>{tomb(x);stock=stock.filter(s=>s!==x);persist()})}
 let photoData='',photoTarget=null;
 function thumbEl(src){
   const ph=()=>{let d=document.createElement('div');d.className='thumb';d.textContent='🍪';return d};
@@ -118,10 +121,213 @@ const mk=(t,f,cls,label)=>{let b=document.createElement('button');b.textContent=
 function tomb(x){let d=deletedSet();d.add(stockId(x));localStorage.setItem(delKey,JSON.stringify([...d]))}
 function changeQty(x,d){let n=(+x.Quantity||0)+d;if(n<1){deleteItem(x);return}tomb(x);x.Quantity=n;persist()}
 function setPoints(x,v){tomb(x);x['Points each']=v;let p=match(x.Barcode);if(p)p.Points=v;persist()}
-const PAGE=10;let page=1,filter='all';
-const FILTERS=[['all','All'],['expired','Expired'],['near','Nearly expired'],['soon','Within 30 days']];
+// ---- Kids' points wallet: one shared balance, refilled to max every day ----
+const walletKey='snack_manager_wallet_v1';
+function todayStr(){let d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+let wallet=(()=>{try{let w=JSON.parse(localStorage.getItem(walletKey)||'null');if(w&&typeof w==='object'){let mx=+w.max||5;return {max:mx,balance:Number.isFinite(+w.balance)?+w.balance:mx,date:w.date||'',log:Array.isArray(w.log)?w.log:[]}}}catch(e){}return {max:5,balance:5,date:'',log:[]}})();
+function saveWallet(){try{localStorage.setItem(walletKey,JSON.stringify(wallet))}catch(e){}}
+function refillIfNewDay(){if(wallet.date!==todayStr()){wallet.date=todayStr();wallet.balance=wallet.max;saveWallet();return true}return false}
+function buy(x){
+  refillIfNewDay();
+  let c=+x['Points each']||0;
+  if(status(x.Expiry)==='EXPIRED'){alert('This snack is expired.');return}
+  if(c>wallet.balance){alert(`Not enough points (${wallet.balance} left, this costs ${c}).`);return}
+  undoable(`🛒 ${x.Name} · ${c} pt${c===1?'':'s'}`,()=>{
+    wallet.balance-=c;
+    wallet.log.push({t:new Date().toISOString(),day:todayStr(),name:x.Name,barcode:x.Barcode,expiry:x.Expiry,pts:c});
+    wallet.log=wallet.log.slice(-300);saveWallet();
+    tomb(x);
+    if((+x.Quantity||0)<=1)stock=stock.filter(s=>s!==x);else x.Quantity=(+x.Quantity)-1;
+    persist();
+  });
+}
+function undoPurchase(i){
+  let e=wallet.log[i];if(!e)return;
+  let b=stock.find(s=>s.Barcode===e.barcode&&s.Expiry===e.expiry&&s.Name===e.name);
+  if(b){tomb(b);b.Quantity=(+b.Quantity||0)+1}else stock.push({Barcode:e.barcode,Name:e.name,Expiry:e.expiry,Quantity:1,'Points each':e.pts});
+  wallet.balance=Math.min(wallet.max,wallet.balance+e.pts);wallet.log.splice(i,1);saveWallet();persist();
+}
+function renderWallet(){
+  const m=$('walletMain');m.replaceChildren();
+  let big=document.createElement('div');big.style.cssText='font-size:32px;font-weight:bold;text-align:center';big.textContent=`⭐ ${wallet.balance} / ${wallet.max}`;m.append(big);
+  if(wallet.max<=10){let d=document.createElement('div');d.style.cssText='text-align:center;font-size:22px;letter-spacing:4px;margin-bottom:8px';let b=Math.max(0,Math.min(wallet.balance,wallet.max));d.textContent='★'.repeat(b)+'☆'.repeat(wallet.max-b);m.append(d)}
+  if(document.activeElement!==$('wMax'))$('wMax').value=wallet.max;
+  const lg=$('wLog');lg.replaceChildren();
+  let idx=[];wallet.log.forEach((e,i)=>{if(e.day===todayStr())idx.push(i)});
+  if(!idx.length){let q=document.createElement('p');q.className='small';q.textContent='No purchases yet today.';lg.append(q)}
+  else{
+    let spent=idx.reduce((a,i)=>a+(+wallet.log[i].pts||0),0);
+    let h=document.createElement('p');h.className='small';h.textContent=`Spent today: ${spent} pt${spent===1?'':'s'}`;lg.append(h);
+    idx.reverse().forEach(i=>{let e=wallet.log[i],r=document.createElement('div');r.className='item';
+      let sp=document.createElement('div');sp.className='info';sp.textContent=`${new Date(e.t).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}  ${e.name} — ${e.pts} pt${e.pts===1?'':'s'}`;
+      r.append(sp,mk('Undo',()=>undoPurchase(i),'gray undo'));lg.append(r)});
+  }
+}
+$('wRefill').onclick=()=>{wallet.balance=wallet.max;saveWallet();walletEdited();render()};
+$('wMinus').onclick=()=>{wallet.balance=Math.max(0,wallet.balance-1);saveWallet();walletEdited();render()};
+$('wPlus').onclick=()=>{wallet.balance=Math.min(wallet.max,wallet.balance+1);saveWallet();walletEdited();render()};
+$('wMax').onchange=()=>{let v=parseInt($('wMax').value,10);if(!(v>=1&&v<=99)){render();return}wallet.max=v;wallet.balance=Math.min(wallet.balance,v);saveWallet();walletEdited();render()};
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&refillIfNewDay())render()});
+setInterval(()=>{if(refillIfNewDay())render()},60000);
+// ---------- toast + undo ----------
+let toastTimer=null;
+function hideToast(){$('toast').classList.remove('show')}
+function toast(msg,undo,ms){
+  let t=$('toast');t.replaceChildren();let sp=document.createElement('span');sp.textContent=msg;t.append(sp);
+  if(undo){let b=document.createElement('button');b.textContent='Undo';b.onclick=()=>{hideToast();undo()};t.append(b)}
+  t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(hideToast,ms||(undo?6000:2800));
+}
+function snap(){return JSON.stringify({products,stock,deleted:[...deletedSet()],wallet})}
+function restore(j){let d=JSON.parse(j);products=d.products;stock=d.stock;localStorage.setItem(delKey,JSON.stringify(d.deleted));wallet=d.wallet;saveWallet();persist()}
+function undoable(msg,fn){let j=snap();fn();toast(msg,()=>restore(j))}
+
+// ---------- date shortcuts ----------
+const pad2=n=>String(n).padStart(2,'0');
+const ymd=d=>`${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
+function addMonths(n){let d=new Date(),day=d.getDate();d.setDate(1);d.setMonth(d.getMonth()+n);let last=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();d.setDate(Math.min(day,last));return ymd(d)}
+function buildDateChips(){
+  const box=$('dateChips');box.replaceChildren();
+  [['+1 month',1],['+3 months',3],['+6 months',6],['+1 year',12]].forEach(([l,n])=>box.appendChild(mk(l,()=>{$('expiry').value=addMonths(n)},'chip')));
+  let last='';try{last=localStorage.getItem('snack_manager_lastexp')||''}catch(e){}
+  if(last)box.appendChild(mk('Last used: '+last,()=>{$('expiry').value=last},'chip'));
+}
+
+// ---------- min stock + shopping list ----------
+function setMin(x){
+  if(!x.Barcode){alert('This item has no barcode, so a minimum cannot be saved for it.');return}
+  let pr=match(x.Barcode);
+  let v=prompt(`Add “${x.Name}” to the shopping list when total stock drops below… (0 = off)`,(pr&&pr.Min)||0);
+  if(v===null)return;v=parseInt(v,10);if(!(v>=0))return;
+  if(!pr){pr={Barcode:x.Barcode,'Snack name':x.Name,Brand:'',Points:x['Points each']||1,Notes:'',Image:'',Min:v};products.push(pr)}else pr.Min=v;
+  persist();
+}
+function shopNeeds(){
+  let need=[];
+  products.forEach(p=>{let mn=+p.Min||0;if(mn<=0)return;
+    let have=stock.filter(x=>String(x.Barcode)===String(p.Barcode)&&status(x.Expiry)!=='EXPIRED').reduce((a,x)=>a+(+x.Quantity||0),0);
+    if(have<mn)need.push({name:p['Snack name']||p.Barcode,have,mn})});
+  return need.sort((a,b)=>(b.mn-b.have)-(a.mn-a.have));
+}
+function renderShop(){
+  const box=$('shopList');if(!box)return;box.replaceChildren();
+  let need=shopNeeds();
+  if(!need.length){let q=document.createElement('p');q.className='small';q.textContent=products.some(p=>+p.Min>0)?'Nothing to buy — everything is above its minimum. 🎉':'No minimums set yet.';box.append(q);return}
+  need.forEach(o=>{let d=document.createElement('div');d.className='item';let i=document.createElement('div');i.className='info';i.textContent=`${o.name} — have ${o.have}, minimum ${o.mn} → buy ${o.mn-o.have}`;d.append(i);box.append(d)});
+}
+$('shopCopy').onclick=async()=>{
+  let need=shopNeeds();if(!need.length){toast('Shopping list is empty');return}
+  let t='Shopping list\n'+need.map(o=>`• ${o.name} × ${o.mn-o.have}`).join('\n');
+  try{await navigator.clipboard.writeText(t);toast('📋 Copied shopping list')}catch(e){prompt('Copy your shopping list:',t)}
+};
+$('sortBy').onchange=()=>{sortBy=$('sortBy').value;try{localStorage.setItem('snack_manager_sort',sortBy)}catch(e){}page=1;render()};
+
+// ---------- backup reminder + persistent storage ----------
+const bkKey='snack_manager_backup_v1';
+const bk=()=>{try{return JSON.parse(localStorage.getItem(bkKey)||'{}')}catch(e){return {}}};
+function setBk(k){let b=bk();b[k]=new Date().toISOString();try{localStorage.setItem(bkKey,JSON.stringify(b))}catch(e){}}
+function ago(iso){if(!iso)return 'never';let m=Math.round((Date.now()-new Date(iso))/60000);if(m<1)return 'just now';if(m<60)return m+' min ago';let h=Math.round(m/60);if(h<24)return h+' h ago';let d=Math.round(h/24);return d+' day'+(d>1?'s':'')+' ago'}
+let storageOk=null;
+async function protectStorage(){try{if(navigator.storage&&navigator.storage.persist){storageOk=(await navigator.storage.persisted())||(await navigator.storage.persist())}}catch(e){}renderBackup()}
+function renderBackup(){
+  const el=$('backupInfo');if(!el)return;let b=bk(),parts=[`Last Excel backup: ${ago(b.export)}`];
+  if(syncOn())parts.push(`Last cloud sync: ${ago(b.sync)}`);
+  parts.push(storageOk===true?'Browser storage: protected ✓':'Browser storage: not guaranteed — add to Home Screen and back up often');
+  const old=iso=>!iso||(Date.now()-new Date(iso))>7*864e5;
+  let warn=stock.length>0&&old(b.export)&&(!syncOn()||old(b.sync));
+  el.className=warn?'small warn':'small';el.textContent=(warn?'⚠️ Time to back up: tap “Export updated Excel”. ':'')+parts.join(' · ');
+}
+
+// ---------- sync between devices (GitHub file) ----------
+const normProduct=p=>({Barcode:p.Barcode,'Snack name':p['Snack name']||p['Snack name (auto)']||'',Brand:p.Brand||'',Points:p.Points||p['Points (1/2/3)']||1,Notes:p.Notes||'',Image:p.Image||'',Min:+p.Min||0});
+const syncKey='snack_manager_sync_v1';
+let syncCfg=(()=>{try{return JSON.parse(localStorage.getItem(syncKey)||'null')||{}}catch(e){return {}}})();
+const saveSyncCfg=()=>{try{localStorage.setItem(syncKey,JSON.stringify(syncCfg))}catch(e){}};
+const syncOn=()=>!!(syncCfg.token&&syncCfg.owner&&syncCfg.repo);
+const setSyncMsg=t=>{let el=$('syncMsg');if(el)el.textContent=t};
+const hashStr=t=>{let h=5381;for(let i=0;i<t.length;i++)h=((h<<5)+h+t.charCodeAt(i))|0;return t.length+':'+h};
+// wallet date/balance are left out so the daily refill alone never counts as a change
+const curHash=()=>hashStr(JSON.stringify({products,stock,log:wallet.log,max:wallet.max,deleted:[...deletedSet()].sort()}));
+const isDirty=()=>!!syncCfg.force||curHash()!==syncCfg.hash;
+let syncTimer=null,syncing=false;
+function markDirty(){if(!syncOn())return;clearTimeout(syncTimer);syncTimer=setTimeout(()=>{if(isDirty())syncNow(true)},4000)}
+function walletEdited(){if(!syncOn())return;syncCfg.force=true;saveSyncCfg();markDirty()}
+const b64enc=t=>{let by=new TextEncoder().encode(t),bin='';for(let i=0;i<by.length;i+=0x8000)bin+=String.fromCharCode.apply(null,by.subarray(i,i+0x8000));return btoa(bin)};
+const b64dec=t=>{let bin=atob(t.replace(/\s/g,'')),b=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)b[i]=bin.charCodeAt(i);return new TextDecoder().decode(b)};
+const ghUrl=()=>`https://api.github.com/repos/${syncCfg.owner}/${syncCfg.repo}/contents/${syncCfg.path||'snack_data.json'}`;
+const ghHead=()=>({Authorization:'Bearer '+syncCfg.token,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'});
+async function ghGet(){
+  let r=await fetch(ghUrl()+'?t='+Date.now(),{headers:ghHead(),cache:'no-store'});
+  if(r.status===404)return null;if(!r.ok)throw new Error('GitHub error '+r.status);
+  let j=await r.json(),text;
+  if(j.content&&j.encoding==='base64')text=b64dec(j.content);
+  else{let rr=await fetch(ghUrl(),{headers:{...ghHead(),Accept:'application/vnd.github.raw+json'},cache:'no-store'});if(!rr.ok)throw new Error('GitHub error '+rr.status);text=await rr.text()}
+  return {sha:j.sha,data:JSON.parse(text)};
+}
+async function ghPut(sha){
+  let snapshot={v:1,updatedAt:new Date().toISOString(),products,stock,wallet,deleted:[...deletedSet()]};
+  let body={message:'Snack Manager sync '+snapshot.updatedAt,content:b64enc(JSON.stringify(snapshot))};if(sha)body.sha=sha;
+  let r=await fetch(ghUrl(),{method:'PUT',headers:{...ghHead(),'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(r.status===409||r.status===422)throw Object.assign(new Error('conflict'),{conflict:true});
+  if(!r.ok)throw new Error('GitHub error '+r.status);
+  return (await r.json()).content.sha;
+}
+function applyRemote(d){
+  products=(d.products||[]).map(normProduct);stock=d.stock||[];
+  localStorage.setItem(delKey,JSON.stringify(d.deleted||[]));
+  if(d.wallet&&(d.wallet.date||'')>=(wallet.date||'')){let w=d.wallet,mx=+w.max||5;wallet={max:mx,balance:Number.isFinite(+w.balance)?+w.balance:mx,date:w.date||'',log:Array.isArray(w.log)?w.log:[]};saveWallet()}
+  refillIfNewDay();
+  localStorage.setItem(key,JSON.stringify({products,stock}));render();checkReminders();
+}
+async function syncNow(auto,retried){
+  if(!syncOn()||syncing)return;
+  if(navigator.onLine===false){setSyncMsg('Offline. Will sync when you are back online.');return}
+  syncing=true;setSyncMsg('Syncing…');
+  const done=m=>{syncCfg.hash=curHash();syncCfg.force=false;saveSyncCfg();setBk('sync');setSyncMsg(`${m} (${new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})})`);renderBackup()};
+  try{
+    let r=await ghGet();
+    if(!r){syncCfg.sha=await ghPut(null);done('Uploaded your data to the cloud.')}
+    else if(r.sha===syncCfg.sha){
+      if(isDirty()){syncCfg.sha=await ghPut(r.sha);done('Uploaded your latest changes.')}else done('Up to date.')
+    }else{
+      const useCloud=()=>{applyRemote(r.data);syncCfg.sha=r.sha;done('Downloaded the latest data from the cloud.')};
+      if(!isDirty())useCloud();
+      else if(confirm('The cloud copy is different from this device.\n\nOK = use the cloud copy (this device’s unsynced changes are replaced)\nCancel = keep this device’s data and overwrite the cloud copy'))useCloud();
+      else{syncCfg.sha=await ghPut(r.sha);done('Cloud copy replaced with this device’s data.')}
+    }
+  }catch(e){
+    if(e.conflict&&!retried){syncing=false;return await syncNow(auto,true)}
+    setSyncMsg(e.conflict?'Another device synced at the same moment. Tap Sync now to retry.':`Sync failed: ${e.message}`);
+  }finally{syncing=false}
+}
+$('syNow').onclick=()=>{if(!syncOn()){$('syncSetup').open=true;setSyncMsg('Not connected yet. Fill in the details below.');return}syncNow(false)};
+$('syConnect').onclick=async()=>{
+  let o=$('syOwner').value.trim(),r=$('syRepo').value.trim(),t=$('syToken').value.trim();
+  if(!o||!r||!t){setSyncMsg('Enter your GitHub username, repository name and access token.');return}
+  setSyncMsg('Checking access…');
+  try{
+    let res=await fetch(`https://api.github.com/repos/${o}/${r}`,{headers:{Authorization:'Bearer '+t,Accept:'application/vnd.github+json'}});
+    if(res.status===401){setSyncMsg('GitHub did not accept that token.');return}
+    if(!res.ok){setSyncMsg('Repository not found, or the token does not have access to it.');return}
+  }catch(e){setSyncMsg('Could not reach GitHub. Check your connection.');return}
+  syncCfg={token:t,owner:o,repo:r,path:'snack_data.json',sha:'',hash:'',force:false};saveSyncCfg();
+  $('syToken').value='';renderBackup();await syncNow(false);
+};
+$('syOff').onclick=()=>{if(!confirm('Disconnect this device from cloud sync? Your data stays on this device.'))return;syncCfg={};try{localStorage.removeItem(syncKey)}catch(e){}setSyncMsg('Not connected.');renderBackup()};
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){renderBackup();syncNow(true)}});
+window.addEventListener('online',()=>syncNow(true));
+setInterval(()=>{if(!document.hidden)syncNow(true)},120000);
+function initUI(){
+  buildDateChips();$('sortBy').value=sortBy;
+  let h=location.hostname;
+  $('syOwner').value=syncCfg.owner||(h.endsWith('.github.io')?h.split('.')[0]:'');
+  $('syRepo').value=syncCfg.repo||(h.endsWith('.github.io')?(location.pathname.split('/')[1]||''):'');
+  setSyncMsg(syncOn()?`Connected to ${syncCfg.owner}/${syncCfg.repo}.`:'Not connected.');
+}
+
+const PAGE=10;let page=1,filter='all',ptsFilter=0,sortBy=(()=>{try{return localStorage.getItem('snack_manager_sort')||'soon'}catch(e){return 'soon'}})();
+const FILTERS=[['all','All'],['expired','Expired'],['near','Nearly expired'],['soon','Within 30 days'],['afford','Can buy now']];
 function inFilter(x,f){let n=days(x.Expiry);
-  return f==='all'?true:f==='expired'?(n!==null&&n<0):f==='near'?(n!==null&&n>=0&&n<=7):f==='soon'?(n!==null&&n>=0&&n<=30):true}
+  return f==='all'?true:f==='expired'?(n!==null&&n<0):f==='near'?(n!==null&&n>=0&&n<=7):f==='soon'?(n!==null&&n>=0&&n<=30):f==='afford'?((+x['Points each']||0)<=wallet.balance&&status(x.Expiry)!=='EXPIRED'):true}
 function matchesSearch(x,t){if(!t)return true;let p=match(x.Barcode)||{};
   return [x.Name,x.Barcode,p.Brand,x.Expiry].some(v=>String(v||'').toLowerCase().includes(t))}
 function setFilter(f){filter=f;page=1;render();$('search').scrollIntoView({behavior:'smooth',block:'start'})}
@@ -139,7 +345,7 @@ function render(){
   const tot=$('totals');tot.replaceChildren();
   if(!stock.length){tot.textContent='No items yet.'}else{
     const link=(t,f)=>{let a=document.createElement('span');a.className='lnk';a.textContent=t;a.onclick=()=>setFilter(f);return a};
-    tot.append(`Total: ${total} | Points: ${pts} | `,link(`Nearly expired: ${near}`,'near'),' | ',link(`Expired: ${expired}`,'expired'));
+    tot.append(`Total: ${total} | Stock value: ${pts} pts | `,link(`Nearly expired: ${near}`,'near'),' | ',link(`Expired: ${expired}`,'expired'));
   }
   // filter chips
   const chips=$('chips');chips.replaceChildren();
@@ -147,9 +353,17 @@ function render(){
     let n=stock.filter(x=>inFilter(x,f)).reduce((a,x)=>a+(+x.Quantity||0),0);
     let c=mk(f==='all'?label:`${label} (${n})`,()=>setFilter(f),'chip'+(filter===f?' on':''));chips.appendChild(c);
   });
+  const pc=$('ptsChips');pc.replaceChildren();
+  [[0,'All points'],[1,'1 pt'],[2,'2 pts'],[3,'3 pts']].forEach(([v,label])=>{
+    let n=stock.filter(x=>!v||(+x['Points each']||0)===v).reduce((a,x)=>a+(+x.Quantity||0),0);
+    pc.appendChild(mk(v?`${label} (${n})`:label,()=>{ptsFilter=v;page=1;render()},'chip'+(ptsFilter===v?' on':'')));
+  });
+  $('sortBy').value=sortBy;
   // search + filter + paging
   const term=$('search').value.trim().toLowerCase();
-  const rows=stock.filter(x=>inFilter(x,filter)&&matchesSearch(x,term));
+  const ptsOf=x=>+x['Points each']||0,expKey=x=>{let n=days(x.Expiry);return n===null?1e9:n};
+  const cmp={soon:(a,b)=>expKey(a)-expKey(b),name:(a,b)=>String(a.Name||'').localeCompare(String(b.Name||''))||expKey(a)-expKey(b),pLow:(a,b)=>ptsOf(a)-ptsOf(b)||expKey(a)-expKey(b),pHigh:(a,b)=>ptsOf(b)-ptsOf(a)||expKey(a)-expKey(b)}[sortBy]||((a,b)=>expKey(a)-expKey(b));
+  const rows=stock.filter(x=>inFilter(x,filter)&&(!ptsFilter||ptsOf(x)===ptsFilter)&&matchesSearch(x,term)).sort(cmp);
   const pages=Math.max(1,Math.ceil(rows.length/PAGE));page=Math.min(Math.max(1,page),pages);
   const list=$('list');list.innerHTML='';
   rows.slice((page-1)*PAGE,page*PAGE).forEach(x=>{
@@ -159,7 +373,7 @@ function render(){
     tw.onclick=()=>{if(!x.Barcode){alert('This item has no barcode, so a photo cannot be saved for it.');return}photoTarget=x;$('rowPhoto').click()};
     let info=document.createElement('div');info.className='info';
     let t=document.createElement('div');t.textContent=`${x.Name} — ${s}`;
-    let e=document.createElement('div');e.className='small';e.textContent=`Expiry: ${x.Expiry}`;
+    let e=document.createElement('div');e.className='small';let mn=(pr&&+pr.Min)||0,ml=document.createElement('span');ml.className='lnk';ml.textContent=mn?`Min stock: ${mn}`:'Min stock: off';ml.onclick=()=>setMin(x);e.append(`Expiry: ${x.Expiry} · `,ml);
     let c=document.createElement('div');c.className='ctl';
     let inp=document.createElement('input');inp.type='number';inp.inputMode='numeric';inp.min='0';inp.className='qty';inp.value=q;inp.setAttribute('aria-label','Quantity (type a number)');
     inp.onfocus=()=>inp.select();inp.onchange=()=>commitQty(x,inp);inp.onkeydown=ev=>{if(ev.key==='Enter')inp.blur()};
@@ -168,14 +382,14 @@ function render(){
     opts.forEach(n=>{let o=document.createElement('option');o.value=n;o.textContent=n+(n===1?' pt':' pts');if(n===pe)o.selected=true;sel.appendChild(o)});
     sel.onchange=()=>setPoints(x,+sel.value);
     c.append(mk('−',()=>changeQty(x,-1),'gray','Decrease quantity'),inp,mk('+',()=>changeQty(x,1),'gray','Increase quantity'),sel);
-    info.append(t,e,c);
+    let cost=pe,expd=s==='EXPIRED',can=!expd&&cost<=wallet.balance;let bb=mk(expd?'Expired':`🛒 Buy 1 · ${cost} pt${cost===1?'':'s'}`,()=>buy(x),'buy');bb.disabled=!can;if(!expd&&!can)bb.title=`Not enough points (${wallet.balance} left)`;info.append(t,e,c,bb);
     div.append(tw,info,mk('Delete',()=>deleteItem(x),'del'));
     list.appendChild(div);
   });
   if(!rows.length&&stock.length){let m=document.createElement('p');m.className='small';m.textContent='No snacks match your search or filter.';list.appendChild(m)}
   $('pager').style.display=rows.length>PAGE?'flex':'none';
   $('pageInfo').textContent=`Page ${page} of ${pages} · ${rows.length} batches`;
-  $('prev').disabled=page<=1;$('next').disabled=page>=pages;
+  $('prev').disabled=page<=1;$('next').disabled=page>=pages;renderWallet();renderShop();
 }
 $('search').oninput=()=>{page=1;render()};
 $('prev').onclick=()=>{page--;render();$('search').scrollIntoView({block:'start'})};
@@ -191,11 +405,35 @@ $('rowPhoto').onchange=async e=>{
   }catch(err){alert('Could not read that photo.')}
 };
 async function lookup(){let code=$('barcode').value.trim();if(!code){$('lookupMsg').textContent='Scan or enter a barcode first.';return}let p=match(code);if(p){setPreview(p.Image||'');$('name').value=p['Snack name']||'';$('brand').value=p.Brand||'';$('points').value=p.Points||1;$('lookupMsg').textContent='Found in your saved product list. Name, brand, and points loaded.';return}setPreview('');$('name').value='';$('brand').value='';$('points').value='1';$('lookupMsg').textContent='Checking the free online product database…';try{let controller=new AbortController();let timer=setTimeout(()=>controller.abort(),10000);let res=await fetch(`https://world.openfoodfacts.org/api/v3/product/${encodeURIComponent(code)}.json?fields=product_name,product_name_en,brands,image_front_small_url`,{signal:controller.signal,headers:{'Accept':'application/json'}});clearTimeout(timer);if(res.status===404){$('lookupMsg').textContent='This barcode is not listed in the online database. Enter the name once; Snack Manager will remember it on this device.';return}if(res.status===429||res.status===503){$('lookupMsg').textContent='The free database is temporarily busy. You can still enter the snack name manually; Snack Manager will remember it.';return}if(!res.ok)throw new Error('HTTP '+res.status);let data=await res.json();let item=data.product||{};let name=(item.product_name||item.product_name_en||'').trim();if(data.status===0||!name){$('lookupMsg').textContent='Barcode not found in the online database. Enter the name and brand once; Snack Manager will remember it on this device.'}else{$('name').value=name;$('brand').value=item.brands||'';setPreview(item.image_front_small_url||'');$('points').value='1';$('lookupMsg').textContent='Online match found: '+name+'. Check the name and brand, then choose 1, 2, or 3 points. It will be saved in your list when you save this batch.'}}catch(err){$('lookupMsg').textContent=err.name==='AbortError'?'The free database took too long to respond. Enter the name manually; Snack Manager will remember it.':'The online database could not be contacted from this connection. Enter the name manually; Snack Manager will remember it.'}}
-function workbookRecords(wb){let ps=[],ss=[];if(wb.Sheets.PRODUCTS){ps=XLSX.utils.sheet_to_json(wb.Sheets.PRODUCTS,{defval:''}).map(r=>({Barcode:r.Barcode,'Snack name':r['Snack name']||r['Snack name (auto)']||'',Brand:r.Brand||'',Points:r.Points||r['Points (1/2/3)']||r['Points (1/2/3) ']||1,Notes:r.Notes||'',Image:r.Image||''})).filter(p=>p.Barcode)}if(wb.Sheets.INVENTORY){ss=XLSX.utils.sheet_to_json(wb.Sheets.INVENTORY,{defval:''}).map(r=>({Barcode:r.Barcode,Name:r['Snack name']||r['Snack name (auto)']||'',Expiry:toDate(r['Expiration date']),Quantity:r.Quantity||0,'Points each':r['Points each']||r['Points each (auto)']||0})).filter(r=>r.Barcode||r.Name)}return {ps,ss}}
+function workbookRecords(wb){let ps=[],ss=[];if(wb.Sheets.PRODUCTS){ps=XLSX.utils.sheet_to_json(wb.Sheets.PRODUCTS,{defval:''}).map(r=>({Barcode:r.Barcode,'Snack name':r['Snack name']||r['Snack name (auto)']||'',Brand:r.Brand||'',Points:r.Points||r['Points (1/2/3)']||r['Points (1/2/3) ']||1,Notes:r.Notes||'',Image:r.Image||'',Min:+r.Min||0})).filter(p=>p.Barcode)}if(wb.Sheets.INVENTORY){ss=XLSX.utils.sheet_to_json(wb.Sheets.INVENTORY,{defval:''}).map(r=>({Barcode:r.Barcode,Name:r['Snack name']||r['Snack name (auto)']||'',Expiry:toDate(r['Expiration date']),Quantity:r.Quantity||0,'Points each':r['Points each']||r['Points each (auto)']||0})).filter(r=>r.Barcode||r.Name)}return {ps,ss}}
 function mergeRecords(ps,ss){let pm=new Map(products.map(p=>[String(p.Barcode).trim(),p]));ps.forEach(p=>{let k=String(p.Barcode).trim();if(k&&!pm.has(k))pm.set(k,p)});products=Array.from(pm.values());let seen=new Set(stock.map(x=>[x.Barcode,x.Name,x.Expiry,x.Quantity,x['Points each']].join('|')));let gone=deletedSet();ss.forEach(x=>{let k=[x.Barcode,x.Name,x.Expiry,x.Quantity,x['Points each']].join('|');if(!seen.has(k)&&!gone.has(k)){stock.push(x);seen.add(k)}});persist();checkReminders()}
-$('file').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let wb=XLSX.read(await f.arrayBuffer(),{type:'array'});let r=workbookRecords(wb);mergeRecords(r.ps,r.ss);$('msg').textContent=`Imported and merged ${r.ps.length} products and ${r.ss.length} stock records from the selected Excel file.`}catch(err){$('msg').textContent='Could not read workbook. Please select the original .xlsx file.'}};
-async function loadGithubExcel(){try{let url=new URL('Snack_Manager_Starter.xlsx',window.location.href);url.searchParams.set('refresh',Date.now());let response=await fetch(url.toString(),{cache:'no-store'});if(!response.ok)throw new Error('HTTP '+response.status);let wb=XLSX.read(await response.arrayBuffer(),{type:'array'});let r=workbookRecords(wb);mergeRecords(r.ps,r.ss);$('msg').textContent=`GitHub Excel loaded automatically: ${r.ps.length} products and ${r.ss.length} stock records. Your saved device records were kept.`}catch(err){$('msg').textContent='Could not automatically load the GitHub Excel file. Check that Snack_Manager_Starter.xlsx is in the repository root. You can still use the app and import Excel manually.'}}
-function toDate(v){if(!v)return '';if(typeof v==='number'){let d=XLSX.SSF.parse_date_code(v);return `${d.y}-${String(d.m).padStart(2,'0')}-${String(d.d).padStart(2,'0')}`}let s=String(v);if(/^\d{4}-\d\d-\d\d$/.test(s))return s;let d=new Date(s);return isNaN(d)?s:`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}$('lookup').onclick=()=>lookup();$('barcode').onchange=()=>lookup();$('save').onclick=()=>{let code=$('barcode').value.trim(),name=$('name').value.trim(),expiry=$('expiry').value,qty=+$('qty').value,points=+$('points').value;if(!code||!name||!expiry||!Number.isInteger(qty)||qty<1){alert('Enter barcode, snack name, expiration date, and quantity.');return}let p=match(code);if(!p){p={Barcode:code,'Snack name':name,Brand:$('brand').value,Points:points,Notes:'',Image:photoData};products.push(p)}else{p['Snack name']=name;p.Brand=$('brand').value;p.Points=points;p.Image=photoData}let nb={Barcode:code,Name:name,Expiry:expiry,Quantity:qty,'Points each':points};let dd=deletedSet();if(dd.delete(stockId(nb)))localStorage.setItem(delKey,JSON.stringify([...dd]));stock.push(nb);persist();$('lookupMsg').textContent='Saved successfully.';$('expiry').value='';$('qty').value=1;if($('keepScan').checked){$('barcode').value='';$('name').value='';$('brand').value='';setPreview('');$('scan').scrollIntoView({behavior:'smooth',block:'start'});startScan()}};let audioCtx=null,torchOn=false,zoomed=false,zoomCaps=null;
+$('file').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{await ensureXLSX();let wb=XLSX.read(await f.arrayBuffer(),{type:'array'});let r=workbookRecords(wb);mergeRecords(r.ps,r.ss);$('msg').textContent=`Imported and merged ${r.ps.length} products and ${r.ss.length} stock records from the selected Excel file.`}catch(err){$('msg').textContent='Could not read workbook. Please select the original .xlsx file.'}};
+async function loadGithubExcel(){try{let url=new URL('Snack_Manager_Starter.xlsx',window.location.href);url.searchParams.set('refresh',Date.now());let response=await fetch(url.toString(),{cache:'no-store'});if(!response.ok)throw new Error('HTTP '+response.status);
+  let et=response.headers.get('etag')||response.headers.get('last-modified')||'';
+  if(et&&et===localStorage.getItem('snack_manager_excel_etag')&&(products.length||stock.length)){$('msg').textContent='GitHub Excel is unchanged since your last visit. Using your saved data.';return}
+  await ensureXLSX();let wb=XLSX.read(await response.arrayBuffer(),{type:'array'});let r=workbookRecords(wb);mergeRecords(r.ps,r.ss);if(et)localStorage.setItem('snack_manager_excel_etag',et);$('msg').textContent=`GitHub Excel loaded automatically: ${r.ps.length} products and ${r.ss.length} stock records. Your saved device records were kept.`}catch(err){$('msg').textContent='Could not automatically load the GitHub Excel file. Check that Snack_Manager_Starter.xlsx is in the repository root. You can still use the app and import Excel manually.'}finally{syncNow(true)}}
+function toDate(v){if(!v)return '';if(typeof v==='number'){let d=XLSX.SSF.parse_date_code(v);return `${d.y}-${String(d.m).padStart(2,'0')}-${String(d.d).padStart(2,'0')}`}let s=String(v);if(/^\d{4}-\d\d-\d\d$/.test(s))return s;let d=new Date(s);return isNaN(d)?s:`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}$('lookup').onclick=()=>lookup();$('barcode').onchange=()=>lookup();$('save').onclick=()=>{
+  let code=$('barcode').value.trim(),name=$('name').value.trim(),expiry=$('expiry').value,qty=+$('qty').value,points=+$('points').value;
+  if(!code||!name||!expiry||!Number.isInteger(qty)||qty<1){alert('Enter barcode, snack name, expiration date, and quantity.');return}
+  protectStorage();
+  let p=match(code);
+  if(!p){p={Barcode:code,'Snack name':name,Brand:$('brand').value,Points:points,Notes:'',Image:photoData,Min:0};products.push(p)}else{p['Snack name']=name;p.Brand=$('brand').value;p.Points=points;p.Image=photoData}
+  let existing=stock.find(x=>String(x.Barcode)===code&&x.Expiry===expiry),merged=false;
+  if(existing&&confirm(`You already have ${existing.Quantity} × “${existing.Name}” expiring ${expiry}.\n\nOK = add ${qty} more to that batch\nCancel = save as a separate batch`)){
+    tomb(existing);existing.Quantity=(+existing.Quantity||0)+qty;existing['Points each']=points;merged=true;
+  }else{
+    let nb={Barcode:code,Name:name,Expiry:expiry,Quantity:qty,'Points each':points};
+    let dd=deletedSet();if(dd.delete(stockId(nb)))localStorage.setItem(delKey,JSON.stringify([...dd]));
+    stock.push(nb);
+  }
+  try{localStorage.setItem('snack_manager_lastexp',expiry)}catch(e){}
+  persist();
+  let m=merged?`✅ Added ${qty} more — ${name} now × ${existing.Quantity}`:`✅ Saved: ${name} × ${qty} (expires ${expiry})`;
+  $('lookupMsg').textContent=m;toast(m);try{navigator.vibrate&&navigator.vibrate(40)}catch(e){}
+  $('expiry').value='';$('qty').value=1;buildDateChips();
+  if($('keepScan').checked){$('barcode').value='';$('name').value='';$('brand').value='';setPreview('');$('scan').scrollIntoView({behavior:'smooth',block:'start'});startScan()}
+};
+let audioCtx=null,torchOn=false,zoomed=false,zoomCaps=null;
 // Safari/iPhone: html5-qrcode only exists after the CDN script loads, so build lists lazily.
 const formats=()=>[Html5QrcodeSupportedFormats.EAN_13,Html5QrcodeSupportedFormats.EAN_8,Html5QrcodeSupportedFormats.UPC_A,Html5QrcodeSupportedFormats.UPC_E];
 const newReader=id=>new Html5Qrcode(id,{formatsToSupport:formats(),experimentalFeatures:{useBarCodeDetectorIfSupported:true},verbose:false});
@@ -222,7 +460,7 @@ async function stopScan(){
   torchOn=false;zoomed=false;$('torch').textContent='🔦 Light on';$('zoom').textContent='🔍 Zoom 2×';
 }
 async function startScan(){
-  if(!window.Html5Qrcode){alert('Scanner library did not load. Check internet.');return}
+  if(!window.Html5Qrcode){try{$('lookupMsg').textContent='Loading scanner…';await loadLib('qr');$('lookupMsg').textContent=''}catch(e){$('lookupMsg').textContent='';alert('Scanner library did not load. Check internet.');return}}
   if(scanner){await stopScan();return}
   try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();audioCtx.resume()}catch(e){} // unlock sound on tap (iOS)
   let handled=false;
@@ -257,7 +495,7 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden&&scanner)st
 $('photoBtn').onclick=()=>$('photo').click();
 $('photo').onchange=async e=>{
   let f=e.target.files[0];e.target.value='';if(!f)return;
-  if(!window.Html5Qrcode){alert('Scanner library did not load. Check internet.');return}
+  if(!window.Html5Qrcode){try{$('lookupMsg').textContent='Loading scanner…';await loadLib('qr');$('lookupMsg').textContent=''}catch(e){$('lookupMsg').textContent='';alert('Scanner library did not load. Check internet.');return}}
   if(scanner)await stopScan();
   $('lookupMsg').textContent='Reading barcode from photo…';
   let h=newReader('photoReader');
@@ -269,5 +507,5 @@ $('photo').onchange=async e=>{
     $('lookupMsg').textContent='Could not read a barcode from that photo. Try again closer, in good light, with the barcode flat and filling the frame — or type the number.';
   }finally{try{h.clear()}catch(e){}}
 };
-$('export').onclick=()=>{let wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(products),'PRODUCTS');let rows=stock.map(x=>({Barcode:x.Barcode,'Snack name':x.Name,'Expiration date':x.Expiry,Quantity:x.Quantity,'Points each':x['Points each'],'Days left':days(x.Expiry),Status:status(x.Expiry)}));XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(rows),'INVENTORY');let total=stock.reduce((a,x)=>a+(+x.Quantity||0),0),exp=stock.filter(x=>status(x.Expiry)==='EXPIRED').reduce((a,x)=>a+(+x.Quantity||0),0),near=stock.filter(x=>status(x.Expiry)==='NEARLY EXPIRED').reduce((a,x)=>a+(+x.Quantity||0),0);XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([['Metric','Value'],['Total quantity',total],['Expired quantity',exp],['Nearly expired quantity',near],['Total points',stock.reduce((a,x)=>a+(+x.Quantity||0)*(+x['Points each']||0),0)]]),'DASHBOARD');XLSX.writeFile(wb,'Snack_Manager_Updated.xlsx')};try{let d=JSON.parse(localStorage.getItem(key)||'{}');products=(d.products||[]).map(p=>({Barcode:p.Barcode,'Snack name':p['Snack name']||p['Snack name (auto)']||'',Brand:p.Brand||'',Points:p.Points||p['Points (1/2/3)']||1,Notes:p.Notes||'',Image:p.Image||''}));stock=d.stock||[]}catch(e){}setPreview('');render();updateNotifStatus();registerSW().then(checkReminders);loadGithubExcel();
+$('export').onclick=async()=>{try{await ensureXLSX()}catch(e){alert('Excel library did not load. Check internet.');return}let wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(products),'PRODUCTS');let rows=stock.map(x=>({Barcode:x.Barcode,'Snack name':x.Name,'Expiration date':x.Expiry,Quantity:x.Quantity,'Points each':x['Points each'],'Days left':days(x.Expiry),Status:status(x.Expiry)}));XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(rows),'INVENTORY');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(wallet.log.map(e=>({Date:e.day,Time:new Date(e.t).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),Snack:e.name,Barcode:e.barcode,Points:e.pts}))),'PURCHASES');let total=stock.reduce((a,x)=>a+(+x.Quantity||0),0),exp=stock.filter(x=>status(x.Expiry)==='EXPIRED').reduce((a,x)=>a+(+x.Quantity||0),0),near=stock.filter(x=>status(x.Expiry)==='NEARLY EXPIRED').reduce((a,x)=>a+(+x.Quantity||0),0);XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([['Metric','Value'],['Total quantity',total],['Expired quantity',exp],['Nearly expired quantity',near],['Stock value (points)',stock.reduce((a,x)=>a+(+x.Quantity||0)*(+x['Points each']||0),0)]]),'DASHBOARD');XLSX.writeFile(wb,'Snack_Manager_Updated.xlsx');setBk('export');renderBackup();toast('✅ Excel exported')};try{let d=JSON.parse(localStorage.getItem(key)||'{}');products=(d.products||[]).map(normProduct);stock=d.stock||[]}catch(e){}refillIfNewDay();setPreview('');initUI();render();updateNotifStatus();renderBackup();protectStorage();registerSW().then(checkReminders);loadGithubExcel();setTimeout(()=>loadLib('qr').catch(()=>{}),3000);
 </script></body></html>
